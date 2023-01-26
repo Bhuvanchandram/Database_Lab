@@ -53,3 +53,17 @@ CREATE TABLE warehouse
 );
 
 --Inserting values into the table
+INSERT INTO Customer values
+(001,'Alex','Mysuru'),
+(002,'Alice','Mangaluru'),
+(003,'Sam','Bengaluru'),
+(004,'Robert','Mumbai'),
+(005,'Donald','Delhi');
+
+INSERT INTO Orders values
+(001,'2022-01-14',001,2000),
+(002,'2021-04-13',002,500),
+(003,'2019-10-02',003,2500),
+(004,'2019-05-12',004,1000),
+(005,'2020-12-23',004,1200);
+

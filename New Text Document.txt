@@ -1,0 +1,67 @@
+//Sailors
+1.
+select color from sailors,boat,rservers
+ where rservers.sid=sailors.sid and rservers.bid=boat.bid and sname="Albert";
+
+2.
+select sid from sailors where rating>4
+ union
+select sid from rservers where bid="B222";
+
+3.
+select sid from sailors where sname like "%storm%" and sid not in ( select sid from rservers ) order by sname asc;
+
+4.
+
+5.
+select sname,max(age) as age from sailors;
+
+6.
+ select boat.bid,avg(sailors.age) from boat,sailors,rservers where
+ sailors.age>=40 and boat.bid=rservers.bid and rservers.sid=sailors.sid
+ group by boat.bid
+ having count(distinct sailors.sid)>=5;
+
+7.
+ create view view1 as
+ select sname,rating from sailors order by rating desc;
+
+8.
+
+//Insurance
+1.
+ select count(*) from person,accident,participated where( person.driver_id=participated.driver_id) and (accident.report_no=participated.report_no) and accident_date like "2021%";
+
+2.
+select count(*) from person,accident,participated where( person.driver_id=participated.driver_id) and (accident.report_no=participated.report_no) and driver_name="Driver_2";
+
+3,4,5
+
+6.
+create view view2 as
+  select model,c_year from car,participated where car.reg_no=participated.reg_no;
+
+7.
+
+//Customer
+1.
+select orders,ship_date from shipment where warehouse=0002;
+
+2.
+select orders,warehouse from shipment,customer,orders where shipment.orders=orders.oid and orders.cust=customer.cust and cname="Customer_5";
+
+3.
+select cname,count(*) as total_orders,avg(order_amt)
+ from customer,orders where
+customer.cust=orders.cust group by cname;
+
+4.
+ delete from orders where cust in (select cust from customer where cname="Customer_2");
+
+5.
+ select * from item having max(unitprice);
+
+6.
+7.
+create view view3 as
+select orders,ship_date from shipment where warehouse=0002;
