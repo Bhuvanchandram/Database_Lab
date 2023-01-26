@@ -67,3 +67,46 @@ INSERT INTO Orders values
 (004,'2019-05-12',004,1000),
 (005,'2020-12-23',004,1200);
 
+INSERT INTO Order_item values
+(001,001,5),
+(002,002,1),
+(003,003,5),
+(004,004,1),
+(005,005,12);
+
+INSERT INTO Item values
+(001,400),
+(002,200),
+(003,1000),
+(004,100),
+(005,500);
+
+INSERT INTO shipment values
+(001,002,"2022-01-14"),
+(002,001,"2021-04-13"),
+(003,004,"2019-10-09"),
+(004,003,"2019-05-16"),
+(005,005,"2020-12-23");
+
+INSERT into warehouse values
+(001,"Mysuru"),
+(002,"Mangaluru"),
+(003,"Bengaluru"),
+(004,"Mumbai"),
+(005,"Delhi");
+
+--Alter tables
+Alter table Item modify  unitprice INTEGER NOT NUll;
+ALTER table Customer modify cname VARCHAR(25) NOT NUll;
+
+--Display
+Select * from Item;
+Select * from Customer;
+
+--Update 
+Update Order_item SET qty=3 WHERE Order_id=002;
+
+--Delete
+Delete from warehouse WHERE warehouse=004;
+
+
