@@ -50,9 +50,25 @@ ALTER TABLE Rservers modify DATE SET NOT NULL;
 
 
 --Adding and Dropping constaints
-ALTER TABLE Rservers ADD FOREIGN key(sid) REFERENCES Sailors(SID);
-ALTER TABLE Rservers ADD FOREIGN key(bid) REFERENCES Boat(BID);
+ALTER TABLE Rservers ADD FOREIGN key(sid) REFERENCES Sailors(SID) ON DELETE CASCADE;
+ALTER TABLE Rservers ADD FOREIGN key(bid) REFERENCES Boat(BID) ON DELETE CASCADE;
 ALTER TABLE Sailors DROP FOREIGN KEY sid;
 ALTER TABLE Rservers ADD FOREIGN key(sid) REFERENCES Sailors(SID);
 
---
+--Display the changes
+desc Sailors;
+Select * from Sailors;
+Select * from Rservers;
+Select * from Boat;
+
+--Update operation
+Update Sailors SET rating=4 where SID='S555';
+
+--Delete Operations
+Delete from Sailors where SID="S222";
+Delete from Boat where bid="B113";
+
+--Display the changes
+Select * from Sailors;
+Select * from Boat;
+Select * from Rservers;
