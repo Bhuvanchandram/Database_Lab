@@ -81,4 +81,35 @@ INSERT INTO Participated values
 ("D444","KA-09-MA-1234",63744,60000),
 ("D555","KA-09-CA-4321",65738,70000);
 
---
+--ALTER Commands
+ALTER Table Participated modify damage_amount INTEGER;
+ALTER Table Accident modify location TEXT NOT NULL;
+ALTER TABLE Accident modify acc_date DATE NOT NULL;
+
+--Display the updated deatils
+Select * from Person;
+Select * from Car;
+Select * from Accident;
+Select * from Owns;
+Select * from Participated;
+
+--Update operation
+Update Participated SET damage_amount=215000 where driver_id="D222";
+
+--DELETE Operation
+DELETE from Person where driver_id="D555";
+DELETE from car where Reg_no="KA-09-AB-4223";
+
+--Reinserting the above values
+INSERT INTO Person values
+("D555","Amanda","Lakshmipuram");
+
+INSERT INTO car values
+("KA-09-AB-4223","Swift",2020);
+
+--Display the updated deatils
+Select * from Person;
+Select * from Car;
+Select * from Accident;
+Select * from Owns;
+Select * from Participated;
