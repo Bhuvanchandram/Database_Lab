@@ -16,7 +16,8 @@ color CHAR(25));
 CREATE TABLE Rservers
 (sid VARCHAR(5),
 bid VARCHAR(5),
-date DATE);
+date DATE,
+FOREIGN KEY (sid) REFERENCES Sailors(SID) ON DELETE CASCADE);
 
 --Inserting values into the Sailors Database
 INSERT INTO Sailors values
@@ -46,11 +47,10 @@ INSERT into Rservers values
 ALTER Table Sailors CHANGE COLUMN sname sailor_name CHAR(25);
 ALTER Table Sailors CHANGE COLUMN sailor_name sname CHAR(25);
 ALTER table Sailors modify age INTEGER NOT NULL;
-ALTER TABLE Rservers modify DATE SET NOT NULL;
+ALTER TABLE Rservers modify date DATE NOT NULL;
 
 
 --Adding and Dropping constaints
-ALTER TABLE Rservers ADD FOREIGN key(sid) REFERENCES Sailors(SID) ON DELETE CASCADE;
 ALTER TABLE Rservers ADD FOREIGN key(bid) REFERENCES Boat(BID) ON DELETE CASCADE;
 ALTER TABLE Sailors DROP FOREIGN KEY sid;
 ALTER TABLE Rservers ADD FOREIGN key(sid) REFERENCES Sailors(SID);
