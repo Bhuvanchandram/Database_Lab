@@ -1,6 +1,6 @@
 --Creating the tables
 --Creating the Sailors Tables
- CREATE TABLE Sailors
+CREATE TABLE Sailors
 (SID VARCHAR(5) primary key,
 sname CHAR(50),
 rating INT(2),
