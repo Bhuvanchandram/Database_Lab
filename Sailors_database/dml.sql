@@ -28,5 +28,3 @@ SELECT color, COUNT(bid) as count_bid FROM Boat
 GROUP BY color 
 HAVING COUNT(bid) >= 1 
 ORDER BY count_bid desc;
-
-
