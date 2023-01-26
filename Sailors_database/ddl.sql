@@ -42,4 +42,17 @@ INSERT into Rservers values
 ('S444','B114','2018-04-05'),
 ('S555','B115','2017-11-12');
 
+--Alter tables
+ALTER Table Sailors CHANGE COLUMN sname sailor_name CHAR(25);
+ALTER Table Sailors CHANGE COLUMN sailor_name sname CHAR(25);
+ALTER table Sailors modify age INTEGER NOT NULL;
+ALTER TABLE Rservers modify DATE SET NOT NULL;
+
+
+--Adding and Dropping constaints
+ALTER TABLE Rservers ADD FOREIGN key(sid) REFERENCES Sailors(SID);
+ALTER TABLE Rservers ADD FOREIGN key(bid) REFERENCES Boat(BID);
+ALTER TABLE Sailors DROP FOREIGN KEY sid;
+ALTER TABLE Rservers ADD FOREIGN key(sid) REFERENCES Sailors(SID);
+
 --
