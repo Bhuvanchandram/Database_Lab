@@ -108,5 +108,3 @@ Update Order_item SET qty=3 WHERE Order_id=002;
 
 --Delete
 Delete from warehouse WHERE warehouse=004;
-
-
