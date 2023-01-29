@@ -48,4 +48,4 @@ DELIMITER;
 INSERT INTO Person values("D777","Ross","Bogadi");
 INSERT INTO Car values("KA-13-AB-4223","Swift",2020);
 INSERT INTO Accident values(43649,'2020-04-05',"Ilvala");
-INSERT INTO Participated values("D777","KA-13-AB-4223",43649,70000);
+INSERT INTO Participated values("D777","KA-13-AB-4223",43649,70000);    
