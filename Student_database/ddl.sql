@@ -48,3 +48,11 @@ CREATE table Text
 );
 
 --Inserting the values into the tables
+INSERT INTO Student values
+(001,"Alice","CSE",'2002-01-01'),
+(001,"Priya","ECE",'2002-01-06'),
+(001,"Ria","CSBS",'2002-01-04'),
+(001,"Ashley","MECH",'2002-01-03'),
+(001,"Maurice","ISE",'2002-01-02');
+
+INSERT INTO 

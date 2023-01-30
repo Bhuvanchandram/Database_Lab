@@ -40,7 +40,7 @@ INSERT into Rservers values
 
 SELECT Sailors.sname
 FROM Sailors
-LEFT JOIN Rservers ON Sailors.sid = Rservers.sid
+JOIN Rservers ON Sailors.sid = Rservers.sid
 GROUP BY Sailors.sname, Sailors.sid
 HAVING COUNT(Rservers.bid) = (SELECT COUNT(*) FROM Boat);
 
