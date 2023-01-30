@@ -22,7 +22,7 @@ INSERT INTO Orders values
 --Select Item having Maximum price
 Select * from Item having Max(unitprice);
 
---View 
+--Views
 CREATE View View1 as
 Select Order_id,ship_date from shipment where warehouse=2;
 
