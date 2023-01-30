@@ -18,7 +18,7 @@ CREATE TABLE Orders
     odate DATE,
     Cust_num INT(10),
     Order_amt INT(6),
-    FOREIGN KEY (Cust_num) REFERENCES Customer(Cust_num)
+    FOREIGN KEY (Cust_num) REFERENCES Customer(Cust_num) ON Delete Cascade
 );
 
 
@@ -27,14 +27,14 @@ CREATE TABLE Order_item
     Order_id INT(10),
     Item INT(10) primary key,
     qty INT(255),
-    FOREIGN key (Order_id) REFERENCES Orders(Order_id)
+    FOREIGN key (Order_id) REFERENCES Orders(Order_id) on delete Cascade
 );
 
 CREATE TABLE Item
 (
     Item INT(10),
     unitprice INT(10),
-    FOREIGN key (Item) REFERENCES Order_item(Item)
+    FOREIGN key (Item) REFERENCES Order_item(Item) on delete Cascade
 );
 
 CREATE TABLE shipment
@@ -42,14 +42,14 @@ CREATE TABLE shipment
     Order_id INT(10),
     warehouse INT(10) primary key,
     ship_date DATE,
-    FOREIGN key (Order_id) REFERENCES Orders(Order_id)
+    FOREIGN key (Order_id) REFERENCES Orders(Order_id) on delete Cascade
 );
 
 CREATE TABLE warehouse
 (
     warehouse INT(10),
     city CHAR(50),
-    FOREIGN key (warehouse) REFERENCES shipment(warehouse)
+    FOREIGN key (warehouse) REFERENCES shipment(warehouse) on delete Cascade
 );
 
 --Inserting values into the table
