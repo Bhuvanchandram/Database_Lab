@@ -17,4 +17,13 @@ WHERE Course.dept LIKE "%CSE%";
 
 --List the students who have scored maximum marks in AI
 
---
+--Create a View
+CREATE VIEW student_courses AS
+SELECT Student.regno, Student.sname, Course.course_id, Course.cname, Enroll.marks
+FROM Student
+JOIN Enroll ON Student.regno = Enroll.regno
+JOIN Course ON Enroll.course_id = Course.course_id;
+
+Select * from student_courses;
+
+--Create Trigger

@@ -38,7 +38,7 @@ CREATE table Book_adoption
     FOREIGN KEY (course_id) REFERENCES Course(course_id) ON Delete CASCADE
 );
 
-CREATE table Text   
+CREATE table Text
 (
     book_ISBN INT(10),
     title CHAR(15),
