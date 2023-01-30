@@ -101,3 +101,14 @@ Update Book_adoption SET sem=6 WHERE course_id=002;
 Select * from Enroll;
 Delete from Enroll where regno=001;
 Select * from Enroll;
+
+INSERT INTO Enroll values
+(001,001,5,70),
+(001,002,5,80);
+
+--Display the details
+Select * from Text;
+Select * from Book_adoption;
+Select * from Enroll;
+Select * from Course;
+Select * from Student;
