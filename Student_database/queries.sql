@@ -14,3 +14,7 @@ JOIN Course ON Book_adoption.course_id=Course.course_id
 WHERE Course.dept LIKE "%CSE%";
 
 --
+
+--List the students who have scored maximum marks in AI
+
+--
