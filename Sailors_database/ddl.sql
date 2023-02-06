@@ -1,4 +1,6 @@
---Creating the tables
+--Creating the database
+CREATE Database sailors;
+USE sailors;
 --Creating the Sailors Tables
 CREATE TABLE Sailors
 (SID VARCHAR(5) primary key,
@@ -25,9 +27,14 @@ INSERT INTO Sailors values
 ('S222','Max',2,20),
 ('S333','Steve',5,36),
 ('S444','Alex',5,30),
-('S555','Alice',5,25);
+('S555','Alice',6,25),
+('S666','Ramona',7,30),
+('S777','Ross',8,30),
+('S888','Sonia',9,30),
+('S999','Richard',10,30),
+('S1011','Alexandra',11,25),
+('S1022','Amy Storm',12,13);
 
---Insert values into the Boat database
 INSERT INTO Boat values
 ('B111','Billy','Black'),
 ('B112','Pilly','Red'),
@@ -35,7 +42,6 @@ INSERT INTO Boat values
 ('B114','Willy','White'),
 ('B115','Lilly','Blue');
 
---Insert values into Rservers
 INSERT into Rservers values
 ('S111','B111','2021-01-01'),
 ('S222','B112','2020-05-31'),

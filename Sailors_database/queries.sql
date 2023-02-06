@@ -1,82 +1,101 @@
---Color of boats reserved by Albert
-SELECT sailors.sname,Boat.color FROM Sailors
-INNER JOIN Rservers on sailors.sid=Rservers.sid
-INNER JOIN Boat on Rservers.bid=Boat.bid
-WHERE sname="Albert";
+--Colors of boat reserved by Albert
+Select color from Boat where BID=(Select BID from Rservers WHERE SID=(Select SID from Sailors WHERE sname="Albert"));
 
---Find all sailors id's of sailors who have a rating of at least 3 or reserved boat 117
-SELECT sailors.SID,sailors.sname FROM Sailors
-INNER JOIN Rservers on sailors.sid=Rservers.sid
-WHERE rating>3 or Rservers.bid=117; 
+--Select the sailors who have the rating 8 pr above or reserved the boat 103
+Select * from Sailors where rating>8 OR SID=(Select SID from Rservers WHERE bid=103);
 
---Insertion of new data into the list
-INSERT INTO Sailors values
-('S888','Sandstorm',1,23),
-('S999','Bill Storm',7,35),
-('S105','George Trump',10,49);
+--Names of sailors who have not reserved the boat and whose names contains string Storm
+Select sname from Sailors 
+JOIN Rservers ON Rservers.sid=Sailors.SID 
+WHERE bid IS NULL AND Sailors.sname LIKE "%storm%";
 
-INSERT INTO Boat values
-('B118','Tinky','Purple'),
-('B119','Rider','Indigo');
-
-INSERT into Rservers values
-('S888','B118','2015-01-01'),
-('S105','B119','2017-05-31');
-
---Not reserved a boat whose name conatins the string "Storm"
-SELECT sailors.sname FROM Sailors
-LEFT JOIN Rservers on sailors.sid=Rservers.sid
-WHERE sailors.sname LIKE "%storm%" AND Rservers.Bid IS NULL;
-
---Names of Sailors who have reserved all boats
-INSERT into Rservers values
-('S111','B112','2020-05-31'),
-('S111','B114','2019-02-21'),
-('S111','B115','2018-04-05'),
-('S111','B116','2017-11-12'),
-('S111','B117','2017-11-12'),
-('S111','B118','2017-11-12'),
-('S111','B119','2017-11-12');
-
-SELECT Sailors.sname
-FROM Sailors
-JOIN Rservers ON Sailors.sid = Rservers.sid
-GROUP BY Sailors.sname, Sailors.sid
+--Names of Sailors who have reserved all boat
+Select * from Sailors
+JOIN Rservers ON Rservers.sid=Sailors.SID
+JOIN Boat ON Boat.BID=Rservers.bid
 HAVING COUNT(Rservers.bid) = (SELECT COUNT(*) FROM Boat);
 
---Name and age of oldest sailor
-SELECT sname,age FROM Sailors WHERE age=(SELECT MAX(Sailors.age) FROM Sailors);
+--Name and age of the oldest sailor
+Select sname,age from Sailors where age=(Select Max(age) from Sailors);
 
---Each boat which was reserved by atleast 5 sailors with age>=40, finding thier boat id and the average age of such sailors
-SELECT Rservers.bid, AVG(Sailors.age) as avg_age
-FROM Rservers
-JOIN Sailors ON Rservers.sid = Sailors.sid
-WHERE Sailors.age >= 40
-GROUP BY Rservers.bid
-HAVING COUNT(Rservers.sid) >= 5;
+--For each boat which was reserved by at least 5 sailors with age >= 40, find the boat id and the average age of such sailors. 
+Select bid,AVG(age) from Sailors
+JOIN Rservers on Rservers.sid=Sailors.SID
+JOIN Boat on Rservers.bid=Boat.BID
+WHERE 
 
---View
-CREATE VIEW View1 as
-Select sname,rating FROM Sailors
-ORDER by rating desc;
+--View showing names and ratings of all sailors sorted by rating in descending order
+CREATE VIEW View1 AS
+Select sname,rating from Sailors order by rating desc;
 
 Select * from View1;
 
---Trigger
-DELIMITER //
-CREATE TRIGGER prevent_boat_deletion
+-- View showing the names of the sailors who have reserved a boat on a given date.
+CREATE VIEW View2 AS
+Select sname from Sailors
+JOIN Rservers ON Rservers.sid=Sailors.SID
+WHERE Rservers.date='2020-05-31';
+
+Select * from View2;
+
+--View showing names and color of all boats that have reserved a Sailor with a specific rating
+CREATE VIEW View3 AS
+Select bname,color from Boat
+JOIN Rservers ON Rservers.bid=Boat.BID
+JOIN Sailors ON Sailors.SID=Rservers.sid
+WHERE rating>2;
+
+Select * from View3;
+
+--Trigger that prevents boats from being deleted If they have active reservations
+Delimiter //
+CREATE TRIGGER trigger1
 BEFORE DELETE ON Boat
 FOR EACH ROW
 BEGIN
     DECLARE reservation_count INT;
-    SELECT COUNT(*) INTO reservation_count
+    Select COUNT(*) INTO reservation_count
     FROM Rservers
-    WHERE Rservers.bid = OLD.bid;
-    IF reservation_count > 0 THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Cannot delete boat with active reservations';
-    END IF;
-END//
-DELIMITER ;
+    WHERE Rservers.bid=OLD.bid;
 
-DELETE FROM Boat WHERE bid="B115";
+    IF reservation_count>0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT='Cannot delete a reserved boat';
+    END IF;
+END //
+
+Delimiter ;
+
+DELETE from Boat WHERE bid='B111';
+
+--Trigger that prevents sailors with rating less than 3 from reserving a boat
+DELIMITER //
+CREATE TRIGGER trigger2
+BEFORE INSERT ON Rservers
+FOR EACH ROW
+BEGIN 
+    DECLARE sailor_rating INT;
+    Select rating INTO sailor_rating
+    FROM Sailors
+    WHERE Sailors.SID=NEW.sid;
+
+    IF sailor_rating<3 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT='Cannote reserve a boat to the sailor having rating less than 3';
+    END IF;
+END //
+Delimiter ;
+
+INSERT INTO Rservers values 
+('S222','B777','2021-01-01');
+
+--Trigger that deletes all expired reservations
+DELIMITER //
+CREATE TRIGGER delete_expired_reservations
+AFTER INSERT ON Rservers
+FOR EACH ROW
+BEGIN
+    DELETE FROM Rservers
+    WHERE date < NOW() AND sid = NEW.sid AND bid = NEW.bid;
+END //
+DELIMITER ;
