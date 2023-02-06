@@ -1,7 +1,5 @@
 --CREATE DATABASE
 CREATE DATABASE insurance;
-
---Use database
 USE insurance;
 
 --Creating table
