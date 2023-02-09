@@ -91,7 +91,7 @@ INSERT INTO Rservers values
 
 --Trigger that deletes all expired reservations
 DELIMITER //
-CREATE TRIGGER delete_expired_reservations
+CREATE TRIGGER trigger3
 AFTER INSERT ON Rservers
 FOR EACH ROW
 BEGIN
