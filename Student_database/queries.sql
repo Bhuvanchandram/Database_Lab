@@ -1,29 +1,12 @@
---Add new Textbook into the department
-INSERT INTO Course values
-(006,"DBMS","CSE");
-INSERT INTO Book_adoption values
-(006,6,0215);
+--Demonstrate how you add a new text book to the database and make this book be adopted by some department.  
 INSERT INTO Text values
-(0215,"DBMS2","Penguin","Author_6");
+(0125,"AI5","Penguin House","Author_10");
 
---Display Course ID,Book_ISBN and Book Title in alpahbetical order
-Select Book_adoption.course_id,Text.book_ISBN,Text.title
-FROM Book_adoption
-JOIN Text ON Book_adoption.book_ISBN=Text.book_ISBN
-JOIN Course ON Book_adoption.course_id=Course.course_id
-WHERE Course.dept LIKE "%CSE%";
+--Produce a list of textbooks including Course_id, Book_ISBN, Book_Title in the alphabetical order for Courses offered by CS department 
+--Here it has been sorted by the order of Course ID
+Select Text.book_ISBN,Text.title,Book_adoption.course_id 
+from Text
+JOIN Book_adoption ON Book_adoption.book_ISBN=Text.book_ISBN
+ORDER BY course_id ASC;
 
 --
-
---List the students who have scored maximum marks in AI
-
---Create a View
-CREATE VIEW student_courses AS
-SELECT Student.regno, Student.sname, Course.course_id, Course.cname, Enroll.marks
-FROM Student
-JOIN Enroll ON Student.regno = Enroll.regno
-JOIN Course ON Enroll.course_id = Course.course_id;
-
-Select * from student_courses;
-
---Create Trigger
