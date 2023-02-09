@@ -21,7 +21,6 @@ CREATE TABLE Orders
     FOREIGN KEY (Cust_num) REFERENCES Customer(Cust_num) ON Delete Cascade
 );
 
-
 CREATE TABLE Order_item
 (
     Order_id INT(10),
@@ -55,7 +54,7 @@ CREATE TABLE warehouse
 --Inserting values into the table
 INSERT INTO Customer values
 (001,'Alex','Mysuru'),
-(002,'Alice','Mangaluru'),
+(002,'Kumar','Mangaluru'),
 (003,'Sam','Bengaluru'),
 (004,'Robert','Mumbai'),
 (005,'Donald','Delhi');
@@ -93,7 +92,7 @@ INSERT into warehouse values
 (002,"Mangaluru"),
 (003,"Bengaluru"),
 (004,"Mumbai"),
-(005,"Delhi");
+(005,"Delhi");  
 
 --Alter tables
 Alter table Item modify  unitprice INTEGER NOT NUll;
